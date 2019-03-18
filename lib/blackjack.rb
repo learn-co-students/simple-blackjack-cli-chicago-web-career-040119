@@ -1,37 +1,54 @@
+require 'pry'
+
 def welcome
-  # code #welcome here
+  puts "Welcome to the Blackjack Table"
 end
 
 def deal_card
-  # code #deal_card here
+  rand(1..11)
 end
 
-def display_card_total
-  # code #display_card_total here
+def display_card_total(score)
+  puts "Your cards add up to #{score}"
 end
 
 def prompt_user
-  # code #prompt_user here
+  puts "Type 'h' to hit or 's' to stay"
 end
 
 def get_user_input
-  # code #get_user_input here
+  gets.chomp
 end
 
-def end_game
-  # code #end_game here
+def end_game(score)
+  puts "Sorry, you hit #{score}. Thanks for playing!"
 end
 
 def initial_round
-  # code #initial_round here
+  score = deal_card
+  score += deal_card
+  display_card_total(score)
+  return score
 end
 
-def hit?
-  # code hit? here
+def hit?(score)
+  prompt_user
+  input = get_user_input
+  #binding.pry
+  case input
+
+    when "h"
+      score += deal_card
+    when "s"
+      score + 0
+    else
+      invalid_command
+  end
+  return score
 end
 
 def invalid_command
-  # code invalid_command here
+  puts "Please enter a valid command"
 end
 
 #####################################################
@@ -39,6 +56,15 @@ end
 #####################################################
 
 def runner
-  # code runner here
+  welcome
+  pscore = initial_round
+
+  newscore = pscore
+  until newscore >= 21
+    newscore = hit?(newscore)
+    display_card_total(newscore)
+  end
+
+  end_game(newscore)
+
 end
-    

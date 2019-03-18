@@ -1,0 +1,5 @@
+require 'pry'
+
+test = gets
+binding.pry
+puts test
